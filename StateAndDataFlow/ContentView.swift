@@ -13,20 +13,24 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Text("Hi, \(userManager.name)")
-                .font(.largeTitle)
-                .padding(.top, 100)
-            Text("\(timer.counter)")
-                .font(.largeTitle)
-                .padding(.top, 100)
+            LargeTitleText(text: "Hi, \(userManager.name)")
+            LargeTitleText(text: "\(timer.counter)")
             Spacer()
             ButtonView(timer: timer)
             Spacer()
-            Button("Logout") {
-                userManager.isRegister.toggle()
-            }
-            .modifier(ProjectButtonStyle(color: .blue))
+            Button("Logout", action: { userManager.isRegister.toggle() })
+                .buttonStyle(color: .blue)
         }
+    }
+}
+
+struct LargeTitleText: View {
+    let text: String
+    
+    var body: some View {
+        Text(text)
+            .font(.largeTitle)
+            .padding(.top, 100)
     }
 }
 
@@ -34,32 +38,5 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environmentObject(UserManager())
-    }
-}
-
-struct ProjectButtonStyle: ViewModifier {
-    let color: Color
-    
-    func body(content: Content) -> some View {
-        content
-            .font(.title.bold()).foregroundColor(.white)
-            .frame(width: 200, height: 60)
-            .background(color)
-            .cornerRadius(20)
-            .overlay(
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(Color.black, lineWidth: 4)
-            )
-    }
-}
-
-struct ButtonView: View {
-    @ObservedObject var timer: TimeCounter
-    
-    var body: some View {
-        Button(action: timer.startTimer) {
-            Text(timer.buttonTitle)
-        }
-        .modifier(ProjectButtonStyle(color: .red))
     }
 }
