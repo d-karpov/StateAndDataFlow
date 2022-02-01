@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  StateAndDataFlow
 //
-//  Created by Alexey Efimov on 26.01.2022.
+//  Created by Денис Карпов on 01.02.2022.
 //
 
 import SwiftUI
@@ -13,13 +13,17 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            LargeTitleText(text: "Hi, \(userManager.name)")
+            LargeTitleText(text: "Hi, \(userManager.user.name)")
             LargeTitleText(text: "\(timer.counter)")
             Spacer()
-            ButtonView(timer: timer)
+            ButtonView(title: timer.buttonTitle, color: .red) {
+                timer.startTimer()
+            }
             Spacer()
-            Button("Logout", action: { userManager.isRegister.toggle() })
-                .buttonStyle(color: .blue)
+            ButtonView(title: "Logout", color: .blue) {
+                DataManager.shared.clear(userManager: userManager)
+            }
+          
         }
     }
 }

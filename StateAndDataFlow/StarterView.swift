@@ -2,20 +2,21 @@
 //  StarterView.swift
 //  StateAndDataFlow
 //
-//  Created by Alexey Efimov on 26.01.2022.
+//  Created by Денис Карпов on 01.02.2022.
 //
 
 import SwiftUI
 
 struct StarterView: View {
+    
     @EnvironmentObject private var userManager: UserManager
     
     var body: some View {
         Group {
-            if userManager.isRegister {
-                ContentView()
-            } else {
+            if !userManager.user.isRegistered {
                 RegisterView()
+            } else {
+                ContentView()
             }
         }
     }

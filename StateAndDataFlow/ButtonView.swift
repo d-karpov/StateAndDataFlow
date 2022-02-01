@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct ButtonView: View {
-    @ObservedObject var timer: TimeCounter
+    let title: String
+    let color: Color
+    let action : () -> Void
     
     var body: some View {
-        Button(action: timer.startTimer) {
-            Text(timer.buttonTitle)
+        Button(action: action) {
+            Text(title)
         }
-        .buttonStyle(color: .red)
+        .buttonStyle(color: color)
     }
 }
 
